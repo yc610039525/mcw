@@ -1,4 +1,4 @@
-package cn.cd.caoyeung.webapp.utils.bean;
+package cn.cd.caoyeung.webapp.context;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

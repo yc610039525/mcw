@@ -22,7 +22,7 @@
 	     </list>
 	   </property> 
 	</bean>
-	<bean class="cn.cd.caoyeung.webapp.utils.bean.SpringContextUtils" />
+	<bean class="cn.cd.caoyeung.webapp.context.SpringContextUtils" />
 	 <!-- 
 		ApplicationContext的事件机制    在Spring中配置了实现ApplicationListener接口的Bean Spring容器就会把这个Bean当成容器事件的监听器
 	   -->

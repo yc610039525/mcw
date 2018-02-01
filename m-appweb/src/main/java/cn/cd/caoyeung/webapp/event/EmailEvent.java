@@ -1,4 +1,4 @@
-package cn.cd.caoyeung.webapp.utils.event;
+package cn.cd.caoyeung.webapp.event;
 
 import org.springframework.context.ApplicationEvent;
 
