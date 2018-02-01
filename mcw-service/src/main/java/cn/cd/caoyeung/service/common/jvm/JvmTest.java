@@ -1,4 +1,4 @@
-package cn.cd.caoyeung.service.common.designpattern.jvm;
+package cn.cd.caoyeung.service.common.jvm;
 
 import java.util.Random;
 /**

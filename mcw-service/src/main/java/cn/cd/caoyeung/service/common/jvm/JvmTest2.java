@@ -1,4 +1,4 @@
-package cn.cd.caoyeung.service.common.designpattern.jvm;
+package cn.cd.caoyeung.service.common.jvm;
 
 public class JvmTest2 {
     public static void main(String[] args) {
