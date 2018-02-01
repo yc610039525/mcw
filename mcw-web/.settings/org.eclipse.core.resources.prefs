@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/cn/cd/caoyeung/webapp/utils/collection/CollectionHelper.java=GBK
+encoding//src/main/java/cn/cd/caoyeung/webapp/utils/file/HttpClient.java=GBK
+encoding//src/main/resources/message.properties=UTF-8
+encoding//src/main/resources/message_en_US.properties=UTF-8
+encoding//src/main/resources/message_zh_CN.properties=UTF-8
+encoding//src/main/webapp/index.jsp=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

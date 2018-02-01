@@ -1,0 +1,85 @@
+.ht-widget-contextmenu {
+  font-family: "Arial", "Helvetica", "sans-serif";
+  font-size: 14px;
+  position: absolute;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.ht-widget-contextmenu .menu-item {
+  -webkit-transition: color 0.1s,background 0.1s;
+  transition: color 0.1s,background 0.1s;
+  background-color: #FFF;
+  color: #000;
+  padding: 3px 0;
+}
+.ht-widget-contextmenu .menu-item:hover {
+  background-color: #648bfe;
+  color: #FFF;
+}
+.ht-widget-contextmenu .menu-item.disabled {
+  color: #888;
+  background-color: #FFF;
+}
+.ht-widget-contextmenu .menu-item.disabled:hover {
+  color: #888;
+  background-color: #FFF;
+}
+.ht-widget-contextmenu .separator {
+  height: 1px;
+  background: gray;
+}
+.ht-widget-contextmenu .prefix {
+  display: inline-block;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  margin: 0 0.2em;
+}
+.ht-widget-contextmenu .check-prefix {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAoUlEQVR4Xu2XQQrAIAwEY/Ch9WX2pxa87EUaZGgFcUHwlBlcD5rMrNnCuC1ONiX9zG46gY0rOAJHoPb1kvwx/DKlgAoovO8rEADwQMJJhzE8Tp7pEMLv0QwHHQK44rMdEji8hJJg8PgOFMFGERDCJQAkADyuoPRB0xEcCkgCwKmAJACcCkgCwKmAJACcCkgCwfl7QEAABwIC7/EmPALnd/wAo5AsUGAzzgwAAAAASUVORK5CYII=);
+}
+.ht-widget-contextmenu .radio-prefix {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAS9JREFUeNrMV20RwyAMZVWAhEnAwSqhEjYHlVAnnYPVATcFnRPqYMvu2I+1vAAtB+Tu/YGQD3gJIES4KMJA0IQ3gLY6SiSUK2FmnCLMdu1uOXuyDYW2tqKkI5gEzn8w1uZGTmDLRya4ifAkvBwcuSBHVm6Euy9zlMWXXDJg96TVRXY67swNINMeVitAXoM4oYFzeYDIEgShXeee2rkviL8SdSmkbCYKJAgnB09/GFd8MXaMq/cBJemakEwmxlPvijkKZ6Jr8j0iqySY5db2hoxrAz1YPEZ0PtTIeofuZqAFi01k63VJu9ZtIsspua4rgEVklCYi+pjAliMBKOYWDJWJKWPvHZC9DIs3ouKtuPhlVMV1XPxBUsWTrMijtLpnefaPSbVfsyo+p1m+5x8BBgDDPYpmU1jyQgAAAABJRU5ErkJggg==);
+}
+.ht-widget-contextmenu .suffix {
+  display: inline-block;
+  margin-left: 1em;
+  margin-right: 0.4em;
+  text-align: right;
+  font-size: 75%;
+}
+.ht-widget-contextmenu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: inline-block;
+  border: 1px solid gray;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.45);
+}
+.ht-widget-contextmenu ul li {
+  white-space: nowrap;
+  display: block;
+}
+.ht-widget-contextmenu ul li > span {
+  display: inline-block;
+}
+.ht-widget-contextmenu ul li > span img {
+  display: inline-block;
+  vertical-align: middle;
+  height: 1.2em;
+  width: auto;
+  margin-right: 0.2em;
+}
+.ht-widget-contextmenu ul li:hover > ul {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+  visibility: visible;
+}
+.ht-widget-contextmenu ul li > ul {
+  position: absolute;
+  visibility: hidden;
+}

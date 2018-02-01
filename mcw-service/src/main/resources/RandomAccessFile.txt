@@ -1,0 +1,8 @@
+ClassLoader classLoader = ClassUtils.class.getClassLoader();
+URL url = classLoader.getResource("./RandomAccessFile.txt");
+File f = new File(url.getPath());
+FileInputStream fileIns = new FileInputStream(f);
+FileOutputStream fileOut = new FileOutputStream(new File("D:\\RandomAccessFile2.txt"));
+FileChannel fromChannel = fileIns.getChannel();
+FileChannel toChannel = fileOut.getChannel();
+fromChannel.transferTo(0, fromChannel.size(), toChannel);

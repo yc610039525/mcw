@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:context="http://www.springframework.org/schema/context" 
+        xmlns:cache="http://www.springframework.org/schema/cache"  
+        xsi:schemaLocation="http://www.springframework.org/schema/beans  
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+            http://www.springframework.org/schema/aop 
+            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+            http://www.springframework.org/schema/context   
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache-3.2.xsd"> 
+	<!-- 国际化 -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	   <property name="basenames" >
+	     <list>
+	       <value>message</value>
+	     </list>
+	   </property> 
+	</bean>
+	<bean class="cn.cd.caoyeung.webapp.utils.bean.SpringContextUtils" />
+	 <!-- 
+		ApplicationContext的事件机制    在Spring中配置了实现ApplicationListener接口的Bean Spring容器就会把这个Bean当成容器事件的监听器
+	   -->
+	<bean class="cn.cd.caoyeung.webapp.utils.event.EmainNotifier" /> 
+	
+	<bean id="chinese_aop" class="cn.cd.caoyeung.webapp.aop.Chinese" />
+	
+	<bean id="XmlAspect" class="cn.cd.caoyeung.webapp.aop.aspect.XmlAspect"/>
+	      
+	<aop:config>
+	  <aop:aspect id="aspect" ref="XmlAspect">
+	    <aop:after-returning 
+	      pointcut="execution(* cn.cd.caoyeung.webapp.aop.*.*(..))" 
+	      method="afterReturn"
+	      returning="retval"
+	    />
+	    <!-- pointcut="execution(* com.team.cd.aop.*.*(..)) and args(food,time,..)"  -->
+	     <aop:before 
+	       pointcut="execution(* cn.cd.caoyeung.*.*(..))" 
+	       method="before"
+	     />
+	   </aop:aspect> 
+	</aop:config>
+	
+	
+	<!-- 启用Spring对@AspectJ的支持 -->
+   <aop:aspectj-autoproxy proxy-target-class="true"/>
+   
+   <bean  class="cn.cd.caoyeung.webapp.aop.aspect.AnnotionAspect"/>
+	<bean id="configurerHelper"
+	   class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations">
+	        <list>
+	            <value>classpath*:*.properties</value>
+	        </list>
+	    </property>
+	</bean>
+	   
+	<bean id="SysConfigHelper" class="cn.cd.caoyeung.webapp.bean.SysConfigHelper">
+		<property name="PROP" value="${CATALINA_HOME}">
+		</property>
+	</bean>
+	     
+	<!-- 
+	<bean id="applicationContext" class="org.apache.axis2.extensions.spring.receivers.ApplicationContextHolder" />     
+	<bean id="springWebService" class="com.cnblog.yc610039525.ws.axis.SpringWebServiceAxis"/>
+	-->
+		    
+	 <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+	  <property name="configLocation" value="classpath:ehcache.xml"/>
+	</bean> 
+	<bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+	  <property name="cacheManager" ref="cacheManager"/>
+	</bean>
+	
+	<bean id="methodCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheManager" ref="cacheManager" />
+		<property name="cacheName" value="xmlCache" />
+	</bean>
+	
+	<bean id="cacheService" class="cn.cd.caoyeung.webapp.utils.cache.EhCacheServiceImpl">
+		<property name="cache"> <ref local="methodCache" /> </property>
+	</bean>
+	
+	<!--启用缓存注解开关
+	<cache:annotation-driven cache-manager="cacheManager"/> -->
+	    
+</beans> 

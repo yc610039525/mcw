@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     xmlns:jaxws="http://cxf.apache.org/jaxws"  
+     xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    					http://www.springframework.org/schema/beans/spring-beans.xsd      
+						http://cxf.apache.org/jaxws 
+						http://cxf.apache.org/schemas/jaxws.xsd">   
+						       
+  <import resource="classpath:META-INF/cxf/cxf.xml" />  
+  <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  
+  <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+  
+  <bean id="helloworldxxWebService"  class="cn.cd.caoyeung.webapp.ws.server.impl.HelloWorldImpl">  
+  </bean>  
+  <bean id="LoggingInInterceptor"  class="org.apache.cxf.interceptor.LoggingInInterceptor" />  
+  <bean id="LoggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor"/>
+  <bean id="HelloInterceptor" class="cn.cd.caoyeung.webapp.ws.server.interceptor.HelloInterceptor"/>
+  
+  
+  <jaxws:endpoint id="helloworld" implementor="#helloworldxxWebService" address="/helloWorld" > 
+	  <jaxws:inInterceptors>
+	   <ref bean="LoggingInInterceptor"/>
+	   <ref bean="HelloInterceptor"/>
+	  </jaxws:inInterceptors> 
+	  <jaxws:outInterceptors>
+	  	<ref bean="LoggingOutInterceptor"/>
+	  </jaxws:outInterceptors>
+  </jaxws:endpoint> 
+
+<!--   <bean id="weatherProxyFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+  	<property name="serviceClass" value="com.team.cd.ws.weather.WeatherServiceSoap"></property>
+  	<property name="address" value="http://web.36wu.com/WeatherService.asmx?WSDL"></property>
+ 
+ 
+  </bean>
+  <bean id="weatherServiceSoap" class="com.team.cd.ws.weather.WeatherServiceSoap" 
+	  factory-bean="weatherProxyFactory" 
+	  factory-method="create">
+  </bean> -->
+  
+	  
+  </beans>  
+  
