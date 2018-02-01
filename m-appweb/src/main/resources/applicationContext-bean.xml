@@ -26,7 +26,7 @@
 	 <!-- 
 		ApplicationContext的事件机制    在Spring中配置了实现ApplicationListener接口的Bean Spring容器就会把这个Bean当成容器事件的监听器
 	   -->
-	<bean class="cn.cd.caoyeung.webapp.utils.event.EmainNotifier" /> 
+	<bean class="cn.cd.caoyeung.webapp.event.EmainNotifier" /> 
 	
 	<bean id="chinese_aop" class="cn.cd.caoyeung.webapp.aop.Chinese" />
 	

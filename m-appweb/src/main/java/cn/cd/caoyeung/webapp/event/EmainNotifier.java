@@ -17,7 +17,7 @@ public class EmainNotifier implements ApplicationListener
       logger.info("邮件地址: " + emailEvent.getAddress());
       logger.info("邮件正文: " + emailEvent.getText());
     } else {
-    	logger.info(evt);
+//    	logger.info(evt);
     }
   }
 }
