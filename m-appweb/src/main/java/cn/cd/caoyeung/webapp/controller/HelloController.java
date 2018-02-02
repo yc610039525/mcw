@@ -46,6 +46,5 @@ public class HelloController {
 		BufferedImage image = ImageUtils.drawCode(number);
 		ImageIO.write(image, "jpeg", os);
 		os.close();
-
 	}
 }

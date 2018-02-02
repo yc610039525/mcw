@@ -363,48 +363,4 @@
 			<filter>src/main/resources/message_en_US.properties</filter>
 		</filters>
 	</build>
-	<profiles>
-		<profile>
-			<id>nexus</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>nexus</id>
-					<name>nexus-Repositories</name>
-					<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-				<repository>
-					<id>nexus-public-snapshots</id>
-					<name>nexus-public-Repositories</name>
-					<url>http://maven.aliyun.com/nexus/content/repositories/snapshots/</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-				</repository>
-				<repository>
-					<id>snapshots</id>
-					<name>Snapshots</name>
-					<url>http://182.18.57.5:8080/nexus/content/repositories/snapshots/</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>true</enabled>
-						<updatePolicy>always</updatePolicy>
-					</snapshots>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
 </project>

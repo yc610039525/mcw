@@ -10,7 +10,7 @@ String basePath = request.getScheme()+
 %>
 <html>
   <head>
-    <title>登录</title>
+    <title>接口测试</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -19,39 +19,33 @@ String basePath = request.getScheme()+
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<script type="text/javascript">
+		var ctx = "${ctx}";
+	</script>
   </head>
   
   <body>
     <hr>
     <hr>
-    <p>Spring框架搭建</p>
-    <hr>
-    <hr>
-    <p>协议request.getScheme()：<%=request.getScheme()%></p>
-    <p>服务名request.getServerName()：<%=request.getServerName()%></p>
-    <p>端口request.getServerPort()：<%=request.getServerPort()%></p>
-    <p>上下文根路径request.getContextPath()：<%=request.getContextPath()%></p>
-    <p>登陆IPrequest.getRemoteAddr()：<%=request.getRemoteAddr()%></p>
-    <p>资源路径request.getServletPath()：<%=request.getServletPath()%></p>
+    <!-- <p>协议：<%=request.getScheme()%></p>
+    <p>服务名：<%=request.getServerName()%></p>
+    <p>端口：<%=request.getServerPort()%></p>
+    <p>上下文根路径：<%=request.getContextPath()%></p>
+    <p>登陆IP：<%=request.getRemoteAddr()%></p>
+    <p>资源路径：<%=request.getServletPath()%></p>
+	<hr> -->
+	<p>功能点</p>
+	<li><a href="/m-appweb/getUserInfo.do">获取用户信息</a></li>
+	<li><a href="/m-appweb/view/FileImport.html">上传文件</a></li>
 	<hr>
-	<hr>
-	<p>http://localhost/spring.framework/cxf/helloWorld?wsdl</p>
-	
-	<a href="getUserInfo.do">Controller use response PrintWriter write String to Brower </a>
-	<hr>
-	<hr>
-	<p> &lt;img style="cursor:pointer;" src="checkcode.do" border="1" onclick="this.src='checkcode.do?' + Math.random();"/&gt;</p>
-	<form action="login.do" method="post">
-	<label>name:</label>
-	<input name="name" />   
-	<label>password:</label>
-	<input name="pwd" type="password" />
-	<label>code:</label>
-	<%--response.setIntHeader("Refresh", 5);<%--JSP验证码图片还未生成，获取不到session数据 --%>
-	<input name="code" value="<%=session.getAttribute("code")==null?"":session.getAttribute("code") %>">
-	<img style="cursor:pointer;" src="checkcode.do" border="1" onclick="this.src='checkcode.do?' + Math.random();"/>&nbsp;&nbsp;
-	<c:if test="${sessionScope.isLogin eq false}"><span>${sessionScope.errorMsg}</span></c:if>
-	<button type="submit">LOGIN</button>
+	<form action="/m-appweb/checkCode.do" method="post">
+	<input name="code" value="<%=session.getAttribute("code")==null?"":session.getAttribute("code") %>"><br/>
+	<img style="cursor:pointer;" src="/m-appweb/getCode.do" 
+	border="1" onclick="this.src='/m-appweb/getCode.do?' + Math.random();"/><br/>
+	<c:if test="${sessionScope.isLogin eq false}">
+	<span>${sessionScope.errorMsg}</span>
+	</c:if>
+	<button type="submit">ACCEPT</button> <button type="reset">RESET</button><br/>
 	</form>
 	
   </body>

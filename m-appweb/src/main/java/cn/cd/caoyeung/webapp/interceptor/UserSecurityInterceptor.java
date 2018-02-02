@@ -20,11 +20,8 @@ public class UserSecurityInterceptor  implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request,HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
-//		String username =(String)session.getAttribute("name");
-//		String pwd =(String)session.getAttribute("pwd");
 		String username =(String)request.getParameter("name");
 		String pwd =(String)request.getParameter("pwd");;
-		String code =(String)request.getParameter("code");;
 		Boolean isLogin =(Boolean)session.getAttribute("isLogin");
 		boolean flag=false;
 		if(username!=null&&!username.isEmpty()){
@@ -39,15 +36,12 @@ public class UserSecurityInterceptor  implements HandlerInterceptor{
 			}
 		}
 		if(isLogin!=null&&isLogin){
-//			flag=true;
 		}
 		if(!flag){
-//			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			response.sendRedirect("/spring.framework/index.jsp");
 
 		}
 		session.setAttribute("isLogin", flag);
-		logger.info("HandlerInterceptor-preHandle():"+request.getServletPath()+(flag?"未被拦截":"被拦截"));
 		return true;
 	}
 

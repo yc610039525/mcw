@@ -80,8 +80,8 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
   <context-param>
-    <param-name>applicationContextParam</param-name>
-    <param-value>web.xml配置上下文参数</param-value>
+    <param-name>contextParam-checkCode</param-name>
+    <param-value>true</param-value>
   </context-param>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
