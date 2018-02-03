@@ -2,21 +2,20 @@ package cn.cd.caoyeung.webapp.model;
 
 public class ResultUtil {
 
-	public static Result success(Object object) {
-		Result result = new Result();
+	public static ResultVO success(Object object) {
+		ResultVO result = new ResultVO();
 		result.setCode(0);
-		result.setMsg("成功");
+		result.setMsg("SUCCESS");
 		result.setData(object);
 		return result;
 	}
-
-	public static Result success() {
+	public static ResultVO success() {
 		return success(null);
 	}
 
-	public static Result error(Integer code, String msg) {
-		Result result = new Result();
-		result.setCode(code);
+	public static ResultVO error(String msg) {
+		ResultVO result = new ResultVO();
+		result.setCode(1);
 		result.setMsg(msg);
 		return result;
 	}

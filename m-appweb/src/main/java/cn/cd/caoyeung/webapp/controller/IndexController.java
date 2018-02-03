@@ -1,10 +1,12 @@
 package cn.cd.caoyeung.webapp.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -16,36 +18,43 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.cd.caoyeung.webapp.bean.LogMessage;
+import cn.cd.caoyeung.webapp.common.file.ImageUtils;
 import cn.cd.caoyeung.webapp.context.WebContextUtils;
+import cn.cd.caoyeung.webapp.controller.base.BaseController;
 import cn.cd.caoyeung.webapp.model.User;
-import cn.cd.caoyeung.webapp.utils.file.ImageUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.ctc.wstx.util.StringUtil;
+
+@Api(description="获取用户信息以及校验码",tags={"2018年2月3日20:17:30"})
 @Controller
-public class IndexController {
+public class IndexController extends BaseController{
 	private static Logger lg = Logger.getLogger(IndexController.class);
-	@LogMessage(description = "校验验证码")
-	@RequestMapping("/checkCode.do")
-	public String checkCode(HttpServletRequest request, HttpServletResponse response) {
+	
+	@ApiOperation(value="校验验证码",notes = "note:根据验证码图片校验信息")
+	@LogMessage(description = "")
+	@RequestMapping(value="/checkCode.do"
+	,method={RequestMethod.GET,RequestMethod.POST}
+	,produces = "application/json;charset=utf-8")
+	public @ResponseBody String checkCode(HttpServletRequest request, HttpServletResponse response) {
 		String code = WebContextUtils.getSessionAttrValue("code",String.class);
-		String webParam = WebContextUtils.getServletContextInitParamValue(request,"contextParam");
-		String inputCode = request.getParameter("contextParam-checkCode");
-		lg.info("是否进行验证码校验:" + webParam);
+		String webParam = WebContextUtils.getServletContextInitParamValue(request,"contextParam-checkCode");
+		String inputCode = request.getParameter("code");
 		boolean checkResult = true;
+		String msg = "检验成功";
 		if(StringUtils.equals(inputCode, "true")){
 			if(!StringUtils.equals(code, inputCode)){
 				checkResult = false;
+				msg = "校验失败";
 			}
 		}
-		List<String> allAPIURL = WebContextUtils.getAllAPIURL(request, response);
-		lg.info("allAPIURL:" + allAPIURL);
-		return "redirect:/";
+		return buildResultVOInfo(checkResult,msg,webParam);
 	}
-	@LogMessage(description = "获取验证码")
-	@RequestMapping("/getCode.do")
+	@ApiOperation(value="获取验证码",notes = "note:获取验证码")
+	@RequestMapping(value = "/getCode.do",method={RequestMethod.GET,RequestMethod.POST})
 	public void getCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setHeader("Paragma", "no-cache");
 		response.setHeader("Cache-Control", "no-cache");
@@ -58,21 +67,33 @@ public class IndexController {
 		BufferedImage image = ImageUtils.drawCode(code);
 		ImageIO.write(image, "jpeg", os);
 		os.close();
-
 	}
-	@LogMessage(description = "获取用户信息")
+	@ApiOperation(value="获取用户信息",notes = "获取用户信息")
 	@RequestMapping(value = "/getUserInfo.do", method = RequestMethod.GET)
 	public void getUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		User user = new User();
-		user.setName("LiWEi");
+		user.setName("李明");
 		user.setGender("M");
 		user.setAge(28);
-		user.setAddress("CHENGDU");
+		user.setAddress("成都万年场");
 		String jsonStr = JSON.toJSONString(user);
 		PrintWriter out = response.getWriter();
 		out.write(jsonStr);
 		out.flush();
 		out.close();
 	}
-
+	@ApiOperation(value="获取员工信息",notes = "获取员工信息")
+	@RequestMapping(value = "/getEmployer", method = {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody User getEmployer(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "name",defaultValue = "李云") String name, 
+			@RequestParam(value="address",required = false) String address){
+		User user = new User();
+		user.setName(name);
+		user.setGender("M");
+		user.setAge(28);
+		user.setAddress(address);
+		return user;
+	}
+	
 }

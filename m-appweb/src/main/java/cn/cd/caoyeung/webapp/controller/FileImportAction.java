@@ -10,6 +10,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,19 +20,20 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 @RequestMapping("/view")
 @Controller
 public class FileImportAction {
+	private static final Log lg = LogFactory.getLog(FileImportAction.class);
 	@RequestMapping(value="/import/index.do")
 	public String execute(HttpServletRequest request,HttpServletResponse response) throws IOException  {
 		String fileParam = request.getParameter("fileParam"); 
-		System.out.println("fileParam:"+fileParam);
+		lg.info("fileParam:"+fileParam);
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; 
 		List<MultipartFile> fileGroup1 = multipartRequest.getFiles("fileGroup1");
 		List<MultipartFile> fileGroup2 = multipartRequest.getFiles("fileGroup2");
-		System.out.println("fileGroup1:"+fileGroup1.size());
-		System.out.println("fileGroup2:"+fileGroup2.size());
+		lg.info("fileGroup1:"+fileGroup1.size());
+		lg.info("fileGroup2:"+fileGroup2.size());
 		for(MultipartFile file : fileGroup1){
 			CommonsMultipartFile commonFile = (CommonsMultipartFile)file;
 			String name = commonFile.getFileItem().getName();
-			System.out.println("fileName:"+commonFile.getFileItem().getName());
+			lg.info("fileName:"+commonFile.getFileItem().getName());
 			FileOutputStream fos = new FileOutputStream(new File("D:\\"+name));
 			BufferedOutputStream bos=new BufferedOutputStream(fos);
 			BufferedInputStream bis = new BufferedInputStream(commonFile.getInputStream());
@@ -41,7 +44,6 @@ public class FileImportAction {
 			bos.close();
 			bis.close();
 		}
-		
 		response.setContentType("text/html;charset=UTF-8");
 		response.getWriter().write("上传"+fileGroup1.size()+"个文件成功");
 		return null;

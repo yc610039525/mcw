@@ -83,10 +83,10 @@
 		<property name="cacheName" value="xmlCache" />
 	</bean>
 	
-	<bean id="cacheService" class="cn.cd.caoyeung.webapp.utils.cache.EhCacheServiceImpl">
+	<bean id="cacheService" class="cn.cd.caoyeung.webapp.common.cache.EhCacheServiceImpl">
 		<property name="cache"> <ref local="methodCache" /> </property>
 	</bean>
-	
+	<bean id="SwaggerConfig" class="cn.cd.caoyeung.webapp.common.config.SwaggerConfig"/>
 	<!--启用缓存注解开关
 	<cache:annotation-driven cache-manager="cacheManager"/> -->
 	    

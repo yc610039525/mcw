@@ -1,6 +1,7 @@
 package cn.cd.caoyeung.webapp.context;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -75,10 +76,12 @@ public class WebContextUtils {
 		Object attribute = httpServletRequest.getAttribute(name);
 		return (T)attribute;
 	}
-	public static List<String> getAllAPIURL(HttpServletRequest request,HttpServletResponse response) {  
-	    List<String> urlList = new ArrayList<String>();//存储所有url集合    
-	    WebApplicationContext wac = (WebApplicationContext) request.getAttribute(DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE);//获取上下文对象  
-	    Map<String, HandlerMapping> requestMappings = BeanFactoryUtils.beansOfTypeIncludingAncestors(wac, HandlerMapping.class, true, false);  
+	public static Set<String> getAllAPIURL(HttpServletRequest request,HttpServletResponse response) {  
+		Set<String> urls = new HashSet<String>();  
+	    WebApplicationContext wac = (WebApplicationContext) request.getAttribute(
+	    		DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+	    Map<String, HandlerMapping> requestMappings = BeanFactoryUtils.beansOfTypeIncludingAncestors(
+	    		wac, HandlerMapping.class, true, false);  
 	    for(HandlerMapping handlerMapping : requestMappings.values()) {  
 	        if(handlerMapping instanceof RequestMappingHandlerMapping) {  
 	            RequestMappingHandlerMapping rmhm = (RequestMappingHandlerMapping) handlerMapping;  
@@ -87,10 +90,10 @@ public class WebContextUtils {
 	                PatternsRequestCondition prc = rmi.getPatternsCondition();  
 	                Set<String> patterns = prc.getPatterns();  
 	                for (String url : patterns)  
-	                    urlList.add(url);  
+	                    urls.add(url);  
 	            }  
 	        }  
 	    }  
-	    return urlList;
+	    return urls;
 	}  
 }

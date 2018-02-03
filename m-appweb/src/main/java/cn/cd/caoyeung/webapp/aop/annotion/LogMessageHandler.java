@@ -4,11 +4,14 @@ import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -21,31 +24,32 @@ import cn.cd.caoyeung.webapp.bean.LogMessage;
 @Service
 @Aspect
 public class LogMessageHandler {
-	private static final Logger lg = Logger.getLogger(LogMessageHandler.class);
+	private static final Log lg = LogFactory.getLog(LogMessageHandler.class);
 	public LogMessageHandler(){
 		lg.info("Init LogMessageHandler");
 	}
 	/**
 	 * 切入点
+	 * 通过注解获取方法 或通过方法后去注解
 	 */
-	@Pointcut("@annotation(cn.cd.caoyeung.webapp.bean.LogMessage)")    
-    public void aspectPointcut() {} 
-	@Before("aspectPointcut()")    
-    public void printJoinPointInfo(JoinPoint joinPoint) {
-		lg.info("调用类名:"+joinPoint.getTarget().getClass().getName());
-		lg.info("调用方法名:"+joinPoint.getSignature().getName());
+//	@Pointcut("@annotation(cn.cd.caoyeung.webapp.bean.LogMessage)")    
+    public void logMessagePointcut() {} 
+//	@Before("logMessagePointcut()")    
+    public void handleLogMessage2(JoinPoint joinPoint) {
+		lg.info("ClassName:"+joinPoint.getTarget().getClass().getName());
+		lg.info("MethodName:"+joinPoint.getSignature().getName());
 	} 
 	/**
-	 * JoinPoint 连接点--方法
+	 * 通过注解获取方法 或通过方法后去注解
 	 */
-	@Pointcut("execution(* cn.cd.caoyeung.webapp.controller.*.*(..))")    
-    public void pathMatchingPointCut() {} 
-	@Before("pathMatchingPointCut()")    
-    public  void printInvokeInfo(JoinPoint joinPoint) throws Exception {    
+//	@Pointcut("execution(* cn.cd.caoyeung.webapp.controller.*.*(..))")    
+    public void controllerPointCut() {} 
+//	@Before("controllerPointCut()")    
+    public  void handleLogMessage(JoinPoint joinPoint) throws Exception {    
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		String requestURI = request.getRequestURI();
-		lg.info("请求URI："+requestURI);
-		lg.info("请求描述："+getAnnotionInfo(joinPoint));
+//		lg.info("RequestURI："+requestURI);
+//		lg.info("Description："+LogMessageHandler.getAnnotionInfo(joinPoint));
 	
 	} 
 	
