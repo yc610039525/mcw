@@ -6,34 +6,23 @@ import io.swagger.annotations.ApiOperation;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.RequestWrapper;
 
-import org.apache.commons.lang3.CharSetUtils;
-import org.apache.commons.net.util.Charsets;
-import org.apache.log4j.Logger;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mysql.fabric.Response;
-
-import cn.cd.caoyeung.webapp.bean.LogMessage;
 import cn.cd.caoyeung.webapp.common.file.ImageUtils;
-import cn.cd.caoyeung.webapp.model.User;
-@Api(description="RESTfull API接口测试",tags={"2018年2月3日21:14:48"})
+import cn.cd.caoyeung.webapp.model.pojo.User;
+@Api(description="2018年2月3日21:14:48",tags={"RESTfull API接口测试"})
 @Controller
 public class HelloController {
-	private static Logger lg = Logger.getLogger(HelloController.class);
 	@ApiOperation(value="根据Id获取产品",notes = "根据Id获取产品")
 	@RequestMapping(value = "/get/{id}/product",
 	method={RequestMethod.POST,RequestMethod.GET}

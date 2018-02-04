@@ -94,6 +94,6 @@
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
 	<!-- Controller AOP-->
-	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true" /> -->
 
 </beans>

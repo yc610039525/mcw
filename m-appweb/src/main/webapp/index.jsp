@@ -39,12 +39,13 @@ String basePath = request.getScheme()+
 	<li><a href="/m-appweb/view/FileImport.html">上传文件</a></li>
 	<hr>
 	<form action="/m-appweb/checkCode.do" method="post">
-	<input name="code" value="<%=session.getAttribute("code")==null?"":session.getAttribute("code") %>"><br/>
+	<input name="code" ><br/><!-- value="<%=session.getAttribute("code")==null?"":session.getAttribute("code") %>" -->
 	<img style="cursor:pointer;" src="/m-appweb/getCode.do" 
 	border="1" onclick="this.src='/m-appweb/getCode.do?' + Math.random();"/><br/>
 	<c:if test="${sessionScope.isLogin eq false}">
-	<span>${sessionScope.errorMsg}</span>
+		<span>${sessionScope.msg}</span>
 	</c:if>
+	<hr/>
 	<button type="submit">ACCEPT</button> <button type="reset">RESET</button><br/>
 	</form>
 	

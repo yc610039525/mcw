@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -23,13 +25,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.cd.caoyeung.webapp.bean.LogMessage;
 import cn.cd.caoyeung.webapp.common.file.ImageUtils;
+import cn.cd.caoyeung.webapp.context.SpringContextUtils;
 import cn.cd.caoyeung.webapp.context.WebContextUtils;
 import cn.cd.caoyeung.webapp.controller.base.BaseController;
-import cn.cd.caoyeung.webapp.model.User;
+import cn.cd.caoyeung.webapp.model.pojo.User;
+import cn.cd.caoyeung.webapp.service.UserServiceI;
 
 import com.alibaba.fastjson.JSON;
 
-@Api(description="获取用户信息以及校验码",tags={"2018年2月3日20:17:30"})
+@Api(description="2018年2月3日20:17:30",tags={"获取用户信息以及校验码"})
 @Controller
 public class IndexController extends BaseController{
 	private static Logger lg = Logger.getLogger(IndexController.class);
@@ -41,17 +45,20 @@ public class IndexController extends BaseController{
 	,produces = "application/json;charset=utf-8")
 	public @ResponseBody String checkCode(HttpServletRequest request, HttpServletResponse response) {
 		String code = WebContextUtils.getSessionAttrValue("code",String.class);
-		String webParam = WebContextUtils.getServletContextInitParamValue(request,"contextParam-checkCode");
+		String checkCodeFlag = WebContextUtils.getServletContextInitParamValue(request,"contextParam-checkCode");
 		String inputCode = request.getParameter("code");
 		boolean checkResult = true;
 		String msg = "检验成功";
-		if(StringUtils.equals(inputCode, "true")){
+		if(StringUtils.equals(checkCodeFlag, "true")){
 			if(!StringUtils.equals(code, inputCode)){
 				checkResult = false;
 				msg = "校验失败";
 			}
 		}
-		return buildResultVOInfo(checkResult,msg,webParam);
+		UserServiceI UserServiceI = (UserServiceI)SpringContextUtils.getBean("userService");
+		List<Map> userById = UserServiceI.getUserById("");
+		lg.info(""+userById);
+		return buildResultVOInfo(checkResult,msg,checkCodeFlag);
 	}
 	@ApiOperation(value="获取验证码",notes = "note:获取验证码")
 	@RequestMapping(value = "/getCode.do",method={RequestMethod.GET,RequestMethod.POST})
