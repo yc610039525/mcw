@@ -22,13 +22,14 @@
 		@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）。
 		 后面，我们处理响应ajax请求时，就使用到了对json的支持
 		 使用了该驱动注册就无法定义下面interceptors属性 -->
-
-	<!-- 启动Spring MVC的注解功能 完成请求和注解POJO的映射， 配置一个基于注解 的定制的WebBindingInitializer 
-		解决日期转换问题 方法级别的处理器映射 -->
+	<context:component-scan base-package="cn.cd.caoyeung.webapp.controller">
+		<!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> -->
+		<context:include-filter type="regex" expression="cn.cd.caoyeung.webapp.controller.*" />   
+	</context:component-scan>
 	<mvc:annotation-driven />
     <mvc:default-servlet-handler />
     <!-- ========================================分隔线========================================= -->
-    <!-- 国际化 -->
+    <!-- 国际化 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
@@ -37,6 +38,7 @@
 			</list>
 		</property>
 	</bean>
+	-->
 	<!-- ========================================分隔线========================================= -->
     <!-- 配置JSON响应 -->
 	<mvc:annotation-driven>
@@ -59,7 +61,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/login.do" />
-			<mvc:mapping path="/*.jsp" />
+			<mvc:exclude-mapping path="/" />
 			<mvc:exclude-mapping path="/swagger*/**" />
 			<mvc:exclude-mapping path="/v2/**" />
 			<mvc:exclude-mapping path="/webjars/**" />
@@ -79,8 +81,8 @@
     <mvc:resources location="/img/" mapping="/img/**"/>   
 	<mvc:resources location="/js/" mapping="/js/**"/>    
 	<mvc:resources location="/css/" mapping="/css/**"/>  
+	
     <!-- ========================================分隔线========================================= -->
-   
 	
 	<!-- context:component-scan包含context:annotation-config功能 
 		@Controller 声明Action组件 
@@ -92,7 +94,6 @@
 		用于注入，(spring提供的) 默认按类型装配 @Transactional( rollbackFor={Exception.class}) 事务管理 
 		@ResponseBody @Scope("prototype") 设定bean的作用域 -->
 	<!-- ========================================分隔线========================================= -->
-	<context:component-scan base-package="cn.cd.caoyeung.webapp" />
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 默认编码 -->

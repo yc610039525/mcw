@@ -17,11 +17,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import cn.cd.caoyeung.webapp.bean.LogMessage;
 import cn.cd.caoyeung.webapp.common.file.ImageUtils;
@@ -29,7 +32,7 @@ import cn.cd.caoyeung.webapp.context.SpringContextUtils;
 import cn.cd.caoyeung.webapp.context.WebContextUtils;
 import cn.cd.caoyeung.webapp.controller.base.BaseController;
 import cn.cd.caoyeung.webapp.model.pojo.User;
-import cn.cd.caoyeung.webapp.service.UserServiceI;
+import cn.cd.caoyeung.webapp.service.AttempTraphServiceI;
 
 import com.alibaba.fastjson.JSON;
 
@@ -37,7 +40,9 @@ import com.alibaba.fastjson.JSON;
 @Controller
 public class IndexController extends BaseController{
 	private static Logger lg = Logger.getLogger(IndexController.class);
-	
+	@Autowired
+	private AttempTraphServiceI attempTraphServiceI;
+
 	@ApiOperation(value="校验验证码",notes = "note:根据验证码图片校验信息")
 	@LogMessage(description = "")
 	@RequestMapping(value="/checkCode.do"
@@ -55,8 +60,8 @@ public class IndexController extends BaseController{
 				msg = "校验失败";
 			}
 		}
-		UserServiceI UserServiceI = (UserServiceI)SpringContextUtils.getBean("userService");
-		List<Map> userById = UserServiceI.getUserById("");
+		AttempTraphServiceI UserServiceI = (AttempTraphServiceI)SpringContextUtils.getBean("userService");
+		List<Map> userById = UserServiceI.getAttempTraphById("");
 		lg.info(""+userById);
 		return buildResultVOInfo(checkResult,msg,checkCodeFlag);
 	}
@@ -102,5 +107,14 @@ public class IndexController extends BaseController{
 		user.setAddress(address);
 		return user;
 	}
-	
+	@SuppressWarnings({ "rawtypes", "unused" })
+	@ApiOperation(value="获取电路基本信息",notes = "获取电路基本信息")
+	@RequestMapping(value = "/getTraph", method = {RequestMethod.POST})
+	public @ResponseBody String getTraph(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam(value = "name",defaultValue = "李云") String name){
+		AttempTraphServiceI bo = SpringContextUtils.getBean("attempTraphServiceI",AttempTraphServiceI.class);
+		List<Map> result = bo.getAttempTraphById(name);
+		return this.buildSuccessInfo(result);
+	}
 }

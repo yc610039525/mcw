@@ -9,20 +9,20 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import cn.cd.caoyeung.webapp.service.UserServiceI;
+import cn.cd.caoyeung.webapp.service.AttempTraphServiceI;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:config/spring/applicationContext-bean.xml" })
 public class SpringJUnit4BaseTest {
 	@Autowired
-	private UserServiceI userService;
+	private AttempTraphServiceI attempTraphServiceI;
 
 	@SuppressWarnings("rawtypes")
 	@Test
 	public void testAddUser() {
 		System.out.println("<!-- ========================================分隔线========================================= -->");
-		List<Map> users = userService.getUserById("");
-		LogFactory.getLog(SpringJUnit4BaseTest.class).debug("USERS:"+users);
+		List<Map> attempTraphs = attempTraphServiceI.getAttempTraphById("");
+		LogFactory.getLog(SpringJUnit4BaseTest.class).debug("AttempTrap:"+attempTraphs);
 		System.out.println("<!-- ========================================分隔线========================================= -->");
 	}
 }

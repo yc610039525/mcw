@@ -28,7 +28,12 @@ public class SpringContextUtils implements ApplicationContextAware {
 	public static Object getBean(String name) throws BeansException {
 		return ctx.getBean(name);
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T getBean(String name,Class<T> cls) throws BeansException {
+		return (T)ctx.getBean(name);
+	}
+	
 	public static Resource getResource(String path) {
 		return ctx.getResource(path);
 	}

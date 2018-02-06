@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 
 import base.SpringTestBaseCase;
-import cn.cd.caoyeung.webapp.service.UserServiceI;
+import cn.cd.caoyeung.webapp.service.AttempTraphServiceI;
 
 public class Ehcache extends SpringTestBaseCase {
 	@Test
@@ -21,8 +21,8 @@ public class Ehcache extends SpringTestBaseCase {
 //		Object object = cache.get("greeting").get();
 //		System.out.println(object);
 //		EhCacheFactoryBean ehCacheFactoryBean = new EhCacheFactoryBean();
-		UserServiceI userService =(UserServiceI) context.getBean("userService");
-		List<Map> users = userService.getUserById("");
+		AttempTraphServiceI userService =(AttempTraphServiceI) context.getBean("userService");
+		List<Map> users = userService.getAttempTraphById("");
 		LogFactory.getLog(Ehcache.class).debug("users:"+users);
 		
 	}
