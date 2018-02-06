@@ -16,9 +16,7 @@ public class TestClient
   {
     ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
     System.out.println(ctx);
-    
     IPerson person = ctx.getBean("chinese_aop",IPerson.class);
-    
     person.sayHello("jack");
     person.eat("米饭",new Date());
     person.eat3("米饭",new Date(),"上海");

@@ -3,6 +3,7 @@
     <wb-module deploy-name="mcw-web">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/" source-path="/target/m2e-jee/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <dependent-module archiveName="m-appservice-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/m-appservice/m-appservice">
             <dependency-type>uses</dependency-type>

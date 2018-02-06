@@ -87,7 +87,7 @@
 	<!-- <select id="getAllUser" resultMap="BaseResultMap">
 		select user_id, user_name, user_birthday, user_salary from t_user
 	</select> -->
-	<select id="getUser" resultClass="java.util.HashMap">
-		SELECT '00000001' AS ID , 'liming' AS NAME FROM DUAL 
+	<select id="getAllUser" resultType="java.util.HashMap">
+		SELECT '00000001' AS CUID , 'liming' AS NAME FROM DUAL 
 	</select>
 </mapper>

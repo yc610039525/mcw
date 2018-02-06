@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserServiceI {
 //
 //	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public List<Map> getUserById(String userId) {
 		List<Map> allUser = userMapper.getAllUser();

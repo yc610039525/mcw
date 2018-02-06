@@ -27,6 +27,17 @@
 		解决日期转换问题 方法级别的处理器映射 -->
 	<mvc:annotation-driven />
     <mvc:default-servlet-handler />
+    <!-- ========================================分隔线========================================= -->
+    <!-- 国际化 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message</value>
+			</list>
+		</property>
+	</bean>
+	<!-- ========================================分隔线========================================= -->
     <!-- 配置JSON响应 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
@@ -43,10 +54,8 @@
             </bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-	
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:prefix="/" p:suffix=".jsp" />
+	<!-- ========================================分隔线========================================= -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/" p:suffix=".jsp" />
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/login.do" />
@@ -70,7 +79,7 @@
     <mvc:resources location="/img/" mapping="/img/**"/>   
 	<mvc:resources location="/js/" mapping="/js/**"/>    
 	<mvc:resources location="/css/" mapping="/css/**"/>  
-    
+    <!-- ========================================分隔线========================================= -->
    
 	
 	<!-- context:component-scan包含context:annotation-config功能 
@@ -82,8 +91,8 @@
 		@Resource 用于注入，( j2ee提供的 ) 默认按名称装配，@Resource(name="beanName") @Autowired 
 		用于注入，(spring提供的) 默认按类型装配 @Transactional( rollbackFor={Exception.class}) 事务管理 
 		@ResponseBody @Scope("prototype") 设定bean的作用域 -->
-	<context:component-scan base-package=" cn.cd.caoyeung.webapp" />
-	
+	<!-- ========================================分隔线========================================= -->
+	<context:component-scan base-package="cn.cd.caoyeung.webapp" />
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 默认编码 -->
@@ -93,6 +102,7 @@
 		<!-- 内存中的最大值 -->
 		<property name="maxInMemorySize" value="40960" />
 	</bean>
+	<!-- ========================================分隔线========================================= -->
 	<!-- Controller AOP-->
 	<!-- <aop:aspectj-autoproxy proxy-target-class="true" /> -->
 	<aop:aspectj-autoproxy/>

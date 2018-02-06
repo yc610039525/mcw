@@ -12,15 +12,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cn.cd.caoyeung.webapp.service.UserServiceI;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:applicationContext-bean.xml" })
+@ContextConfiguration(locations = { "classpath:config/spring/applicationContext-bean.xml" })
 public class SpringJUnit4BaseTest {
-//	@Autowired
-//	private UserServiceI userService;
+	@Autowired
+	private UserServiceI userService;
 
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testAddUser() {
-//		List<Map> users = userService.getUserById("");
-//		LogFactory.getLog(SpringJUnit4BaseTest.class).debug("USERS:"+users);
-		System.out.println("================");
+		System.out.println("<!-- ========================================分隔线========================================= -->");
+		List<Map> users = userService.getUserById("");
+		LogFactory.getLog(SpringJUnit4BaseTest.class).debug("USERS:"+users);
+		System.out.println("<!-- ========================================分隔线========================================= -->");
 	}
 }

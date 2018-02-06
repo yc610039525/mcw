@@ -71,4 +71,7 @@ public class ClassUtil {
 				return null;
 			}
 		}
+		public static void main(String[] args) {
+			
+		}
 }
